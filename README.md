@@ -3,7 +3,7 @@
 An implementation of a [Tree][wiki-tree] in elm. The goal of this project is to:
 
  * Implement basic list methods: `depth`, `height`, `add/removeChild`
- * Allow any value stored in a Node
+ * Store values as actual values, avoid serialization at all costs.
 
 ## Tree
 ```elm
@@ -11,6 +11,7 @@ An implementation of a [Tree][wiki-tree] in elm. The goal of this project is to:
 -- Tree is either a node or empty
 type Tree v
     = Node v (List (Tree v))
+    | Leaf v
     | Empty
 
 ```
@@ -20,7 +21,7 @@ type Tree v
 ```elm
 
 tree = Tree.addChild "captains" Tree.empty
--- tree == Node "captains" []
+-- tree == Leaf "captains"
 
 allCaptains =
   let
@@ -30,9 +31,9 @@ allCaptains =
     tree
 -- allCaptains ==
 --     Node "captains"
---         [ Node "Malcolm Reynolds" []
---         , Node "Jean-Luc Picard" []
---         , Node "Turanga Leela" []
+--         [ Leaf "Malcolm Reynolds"
+--         , Leaf "Jean-Luc Picard"
+--         , Leaf "Turanga Leela"
 --         ]
 
 getCaptain key =
@@ -40,7 +41,7 @@ getCaptain key =
 
 getLeela =
   getCaptain "Truanga Leela"
--- Just (Node "Turanga Leela" [])
+-- Just (Leaf "Turanga Leela")
 
 ```
 

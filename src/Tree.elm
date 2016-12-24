@@ -5,6 +5,7 @@ import Dict exposing (Dict)
 
 type Tree v
     = Node v (List (Tree v))
+    | Leaf v
     | Empty
 
 
@@ -15,7 +16,7 @@ empty =
 
 init : a -> Tree a
 init v =
-    Node v []
+    Leaf v
 
 
 addChild : comparable -> Tree comparable -> Tree comparable
@@ -24,8 +25,11 @@ addChild key tree =
         Empty ->
             init key
 
+        Leaf v ->
+            Node v [ init key ]
+
         Node v children ->
-            Node v (List.append children [ (Node key []) ])
+            Node v (List.append children [ (init key) ])
 
 
 map : (a -> b) -> Tree a -> Tree b
@@ -33,6 +37,9 @@ map f tree =
     case tree of
         Empty ->
             Empty
+
+        Leaf key ->
+            Leaf (f key)
 
         Node key children ->
             Node (f key) (List.map (map f) children)
@@ -44,6 +51,9 @@ getKey tree =
         Empty ->
             Nothing
 
+        Leaf key ->
+            Just key
+
         Node v children ->
             Just v
 
@@ -54,12 +64,18 @@ getChildByKey key tree =
         Empty ->
             Nothing
 
+        Leaf _ ->
+            Nothing
+
         Node v children ->
             let
                 filterChildren child =
                     case child of
                         Empty ->
                             False
+
+                        Leaf v ->
+                            v == key
 
                         Node v children ->
                             v == key
