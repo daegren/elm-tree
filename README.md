@@ -1,6 +1,10 @@
 # Elm Tree
 
-An implementation of a [Tree][wiki-tree] in elm. The goal of this project is to:
+An implementation of a [Tree][wiki-tree] in elm.
+
+[![Build Status](https://travis-ci.org/daegren/elm-tree.svg?branch=master)](https://travis-ci.org/daegren/elm-tree)
+
+The goal of this project is to:
 
  * Implement basic list methods: `depth`, `height`, `add/removeChild`
  * Store values as actual values, avoid serialization at all costs.

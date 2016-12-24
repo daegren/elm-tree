@@ -1,7 +1,7 @@
 {
   "name": "tree",
   "version": "1.0.0",
-  "description": "An implementation of a [Tree][wiki-tree] in elm. The goal of this project is to:",
+  "description": "An implementation of a [Tree][wiki-tree] in elm.",
   "main": "index.js",
   "directories": {
     "test": "tests"
