@@ -32,6 +32,19 @@ addChild key tree =
             Node v (List.append children [ (init key) ])
 
 
+addChildTree : Tree a -> Tree a -> Tree a
+addChildTree subTree tree =
+    case tree of
+        Empty ->
+            subTree
+
+        Leaf v ->
+            Node v [ subTree ]
+
+        Node key children ->
+            Node key (subTree :: children)
+
+
 map : (a -> b) -> Tree a -> Tree b
 map f tree =
     case tree of

@@ -31,6 +31,22 @@ all =
                                         |> Tree.addChild "Firefly"
                             in
                                 Expect.equal (Tree.getChildByKey "Firefly" tree) (Just (Tree.addChild "Firefly" Tree.Empty))
+                    , test "merge two trees" <|
+                        \_ ->
+                            let
+                                tree =
+                                    Tree.addChild "ships" Tree.Empty
+
+                                firefly =
+                                    Tree.addChild "Firefly" Tree.Empty
+                                        |> Tree.addChild "Malcolm Reynols"
+                                        |> Tree.addChild "Derrial Book"
+                                        |> Tree.addChild "Hoban Washburne"
+
+                                mergedTree =
+                                    Tree.addChildTree firefly tree
+                            in
+                                Expect.equal (Tree.getChildByKey "Firefly" mergedTree) (Just firefly)
                     ]
                 ]
             ]
