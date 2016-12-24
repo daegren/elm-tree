@@ -1,0 +1,22 @@
+{
+  "name": "tree",
+  "version": "1.0.0",
+  "description": "An implementation of a [Tree][wiki-tree] in elm. The goal of this project is to:",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "elm-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daegren/elm-tree.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daegren/elm-tree/issues"
+  },
+  "homepage": "https://github.com/daegren/elm-tree#readme"
+}
