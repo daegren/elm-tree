@@ -19,7 +19,7 @@ init v =
     Leaf v
 
 
-addChild : comparable -> Tree comparable -> Tree comparable
+addChild : a -> Tree a -> Tree a
 addChild key tree =
     case tree of
         Empty ->
@@ -58,7 +58,7 @@ map f tree =
             Node (f key) (List.map (map f) children)
 
 
-getKey : Tree comparable -> Maybe comparable
+getKey : Tree a -> Maybe a
 getKey tree =
     case tree of
         Empty ->
@@ -71,7 +71,7 @@ getKey tree =
             Just v
 
 
-getChildByKey : comparable -> Tree comparable -> Maybe (Tree comparable)
+getChildByKey : a -> Tree a -> Maybe (Tree a)
 getChildByKey key tree =
     case tree of
         Empty ->
