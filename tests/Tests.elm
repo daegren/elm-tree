@@ -28,9 +28,9 @@ all =
                             let
                                 tree =
                                     Tree.addChild "ships" Tree.Empty
-                                        |> Tree.addChild "Firefly"
+                                        |> Tree.addChild "Serenity"
                             in
-                                Expect.equal (Tree.getChildByKey "Firefly" tree) (Just (Tree.addChild "Firefly" Tree.Empty))
+                                Expect.equal (Tree.getChildByKey "Serenity" tree) (Just (Tree.addChild "Serenity" Tree.Empty))
                     , test "merge two trees" <|
                         \_ ->
                             let
@@ -38,7 +38,7 @@ all =
                                     Tree.addChild "ships" Tree.Empty
 
                                 firefly =
-                                    Tree.addChild "Firefly" Tree.Empty
+                                    Tree.addChild "Serenity" Tree.Empty
                                         |> Tree.addChild "Malcolm Reynols"
                                         |> Tree.addChild "Derrial Book"
                                         |> Tree.addChild "Hoban Washburne"
@@ -46,8 +46,40 @@ all =
                                 mergedTree =
                                     Tree.addChildTree firefly tree
                             in
-                                Expect.equal (Tree.getChildByKey "Firefly" mergedTree) (Just firefly)
+                                Expect.equal (Tree.getChildByKey "Serenity" mergedTree) (Just firefly)
                     ]
+                ]
+            , describe "removing children"
+                [ test "remove child from empty tree" <|
+                    \_ ->
+                        let
+                            tree =
+                                Tree.init "ships"
+                                    |> Tree.addChild "Serenity"
+                                    |> Tree.addChild "U.S.S. Enterprise"
+
+                            treeWithRemovedChild =
+                                Tree.removeChild "Serenity" tree
+                        in
+                            Expect.equal Nothing (Tree.getChildByKey "Serenity" treeWithRemovedChild)
+                ]
+            , describe "tree functions"
+                [ test "depth" <|
+                    \_ ->
+                        let
+                            ussEnterpriseTree =
+                                Tree.init "U.S.S Enterprise"
+                                    |> Tree.addChild "Jean-Luc Picard"
+
+                            fireflyTree =
+                                Tree.init "Serenity"
+
+                            tree =
+                                Tree.init "ships"
+                                    |> Tree.addChildTree ussEnterpriseTree
+                                    |> Tree.addChildTree fireflyTree
+                        in
+                            Expect.equal 2 (Tree.depth tree)
                 ]
             ]
           --     [ test "Addition" <|

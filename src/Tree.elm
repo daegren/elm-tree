@@ -45,6 +45,31 @@ addChildTree subTree tree =
             Node key (subTree :: children)
 
 
+removeChild : a -> Tree a -> Tree a
+removeChild key tree =
+    case tree of
+        Empty ->
+            Empty
+
+        Leaf v ->
+            Leaf v
+
+        Node v children ->
+            let
+                filterChildren child =
+                    case child of
+                        Empty ->
+                            False
+
+                        Leaf v ->
+                            v /= key
+
+                        Node v children ->
+                            v /= key
+            in
+                Node v (List.filter filterChildren children)
+
+
 map : (a -> b) -> Tree a -> Tree b
 map f tree =
     case tree of
@@ -95,3 +120,23 @@ getChildByKey key tree =
             in
                 List.filter filterChildren children
                     |> List.head
+
+
+depth : Tree a -> Int
+depth tree =
+    case tree of
+        Empty ->
+            0
+
+        Leaf _ ->
+            0
+
+        Node v children ->
+            let
+                childResult =
+                    List.map depth children
+
+                d =
+                    List.maximum childResult |> Maybe.withDefault 0
+            in
+                1 + d
