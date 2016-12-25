@@ -6,7 +6,7 @@ An implementation of a [Tree][wiki-tree] in elm.
 
 The goal of this project is to:
 
- * Implement basic list methods: `depth`, `height`, `add/removeChild`
+ * Implement basic tree methods: `depth`, `height`, `add/removeChild`
  * Store values as actual values, avoid serialization at all costs.
 
 ## Tree
@@ -24,7 +24,7 @@ type Tree v
 
 ```elm
 
-tree = Tree.addChild "captains" Tree.empty
+tree = Tree.init "captains"
 -- tree == Leaf "captains"
 
 allCaptains =
@@ -46,6 +46,27 @@ getCaptain key =
 getLeela =
   getCaptain "Truanga Leela"
 -- Just (Leaf "Turanga Leela")
+
+```
+
+Multi-typed trees can be achieved using a `Union Type`
+
+```elm
+type Value
+  = String String
+  | Int Int
+  | Bool Bool
+
+stringAndIntTree =
+  Tree.init (String "Philip J. Fry")
+    |> Tree.addChild
+      ( (String "isOwnGrandfather")
+          |> Tree.addChild (Bool True)
+      )
+-- Node (String "Philip J. Fry")
+--   [ Node (String "isOwnGrandfather")
+--     [ Leaf (Bool True) ]
+--   ]
 
 ```
 
