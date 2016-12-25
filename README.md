@@ -28,11 +28,11 @@ tree = Tree.init "captains"
 -- tree == Leaf "captains"
 
 allCaptains =
-  let
-    _ = List.map (\captain -> Tree.addChild captain tree)
-      [ "Malcolm Reynolds", "Jean-Luc Picard", "Turanga Leela" ]
-  in
-    tree
+    let
+        _ = List.map (\captain -> Tree.addChild captain tree)
+            [ "Malcolm Reynolds", "Jean-Luc Picard", "Turanga Leela" ]
+    in
+        tree
 -- allCaptains ==
 --     Node "captains"
 --         [ Leaf "Malcolm Reynolds"
@@ -41,10 +41,10 @@ allCaptains =
 --         ]
 
 getCaptain key =
-  Tree.getChildByKey key allCaptains
+    Tree.getChildByKey key allCaptains
 
 getLeela =
-  getCaptain "Truanga Leela"
+    getCaptain "Truanga Leela"
 -- Just (Leaf "Turanga Leela")
 
 ```
@@ -53,16 +53,16 @@ Multi-typed trees can be achieved using a `Union Type`
 
 ```elm
 type Value
-  = String String
-  | Int Int
-  | Bool Bool
+    = String String
+    | Int Int
+    | Bool Bool
 
 stringAndIntTree =
-  Tree.init (String "Philip J. Fry")
-    |> Tree.addChild
-      ( (String "isOwnGrandfather")
-          |> Tree.addChild (Bool True)
-      )
+    Tree.init (String "Philip J. Fry")
+        |> Tree.addChildTree
+            (Tree.init (String "isOwnGrandfather")
+                |> Tree.addChild (Bool True)
+            )
 -- Node (String "Philip J. Fry")
 --   [ Node (String "isOwnGrandfather")
 --     [ Leaf (Bool True) ]
